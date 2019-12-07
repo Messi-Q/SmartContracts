@@ -1,2 +1,3 @@
 # Reeantrancy_Attack
-This is a repo about the reentrancy bug and attack of smart contract.
+This is a repo that contains the smart contract vulnerabilities, such as reenrtancy and infinite loop.
+
