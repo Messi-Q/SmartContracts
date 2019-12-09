@@ -3,6 +3,16 @@
 // ...
 
 uint256 for_loop1() {
+   uint256 count = 0;
+   ...
+   for(uint8 i = 0; i < 10; i ++) {
+      count++;
+   } 
+   require(count != 0; "count !=0 ");
+   return count;
+}
+
+uint256 for_loop2() {
    uint256 count1 = 0;
    // ...
    for(uint8 i = 0; i < 1000; i++) {
@@ -12,7 +22,7 @@ uint256 for_loop1() {
    return count1;
 }
 
-uint256 for_loop2() {
+uint256 for_loop3() {
    uint256 count2 = 0;
    // ...
    for(uint16 i = 0; i < 1000000; i++) {
@@ -24,4 +34,4 @@ uint256 for_loop2() {
 
 // ...
 
-_() {}
+_() {} // fallback function
