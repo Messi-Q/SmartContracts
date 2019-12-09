@@ -33,7 +33,7 @@ constructor $Dice() {
   totalGameCount = 0;
 }
 
-void checkAmount(uint256 amount) {
+void checkAmount(uint256 amount) {  // check money if enough
   Require(U256_Cmp(amount, U256(0) == 1), "amount must > 0");
   address from = GetSender();
   accounts.key = from;
@@ -58,14 +58,14 @@ void Withdraw(uint256 amount) {
 }
 
 MUTABLE
-void WithdrawAll() {
+void WithdrawAll() {  // withdraw all money
   accounts.key = GetSender();
   uint256 amount = accounts.value.balance;
   Withdraw(amount);
 }
 
 MUTABLE
-void $Deposit() {
+void $Deposit() {  // deposit money
   uint256 amount = GetValue();
   address from = GetSender();
   accounts.key = from;
@@ -75,15 +75,15 @@ void $Deposit() {
 }
 
 UNMUTABLE
-uint256 GetAmountFromAddress(address addr) {
+uint256 GetAmountFromAddress(address addr) {  // get money from certain address
   accounts.key = addr;
   return accounts.value.balance;
 }
 
 UNMUTABLE
-uint256 GetAmount(uint256 amount) { 
+uint256 GetAmount(uint256 amount) {  // get money
   checkAmount(amount);
   return GetAmountFromAddress(GetSender()); 
 }
 
-$_() { $Deposit(); }
+$_() { $Deposit(); }  // fallback function
