@@ -1,3 +1,4 @@
+// This contract is vulnerable to attack
 contract Victim {
   mapping (address => uint) private Balance;
   uint bonuspool;
@@ -15,6 +16,7 @@ contract Victim {
   }
 }
 
+// attack contract
 contract Attacker {
   //...
   function Attacker() {
