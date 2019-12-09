@@ -33,7 +33,7 @@ constructor $Dice() {
   totalGameCount = 0;
 }
 
-void checkAmount(uint256 amount) {  // check money if enough
+void checkAmount(uint256 amount) {  // check if the amount is enough
   Require(U256_Cmp(amount, U256(0) == 1), "amount must > 0");
   address from = GetSender();
   accounts.key = from;
