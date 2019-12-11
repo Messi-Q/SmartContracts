@@ -28,6 +28,7 @@ contract Vulnerable{
     msg.sender.call.value(_amount)();
     balances[msg.sender]-=_amount;
     totalbalance-= _amount;
+  }
 }
 
 pragma solidity ^0.4.18;
