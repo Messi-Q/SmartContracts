@@ -6,6 +6,7 @@ typedef struct {
 } Account;
 
 KEY mapping(address, Account) accounts;
+KEY uint256 count = 0;
 
 constructor $Infinite_loop_call_ring(){
   owner = GetSender();
@@ -32,7 +33,7 @@ void checkOwner() {
 
 // withdraw asset
 void withdraw(uint256 amount) {
-  checkAmount(); // input error
+  checkAmount(); // input error or input empty
   address addr = GetSender();
   uint256 balance = accounts.value.balance;
   if (balance >= amount) {
@@ -41,5 +42,8 @@ void withdraw(uint256 amount) {
 }
 
 $_(){ // fallback function
-  withdraw(amount);
+  count++;
+  if (count < 10){ 
+    withdraw(amount);
+  }
 }
