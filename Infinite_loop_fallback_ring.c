@@ -44,7 +44,7 @@ void withdraw(uint256 amount) {
 
 $_(){ // fallback function
   count++;
-  if (count < 10){ 
+  if (count < 1000){ 
     withdraw(amount);
   }
 }
