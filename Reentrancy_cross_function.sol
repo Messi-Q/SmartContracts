@@ -14,16 +14,16 @@ contract Vulnerable{
       uint256 amount = userBalances[msg.sender];
       if (userBalances[msg.sender] > 0) {
         require(msg.sender.call.value(amount)());
-        totalbalance -= _amount;
+        totalbalance -= amount;
     	userBalances[msg.sender] = 0;
       }
   }
   
   // withdraw part the Ether
-  function withdrawPortion(uint _amount) external {   
+  function withdrawPortion(uint amount) external {   
      if (userBalances[msg.sender] >= amount) {
         require(msg.sender.call.value(amount)());
-        totalbalance -= _amount;
+        totalbalance -= amount;
         userBalances[msg.sender] -= amount;
      }
   }
