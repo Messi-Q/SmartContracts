@@ -26,7 +26,7 @@ contract Vulnerable{
 
   function withdraw(uint _amount) public {   
     msg.sender.call.value(_amount)();
-    balances[msg.sender] -=_amount;
+    userBalances[msg.sender] -= _amount;
     totalbalance -= _amount;
   }
 }
