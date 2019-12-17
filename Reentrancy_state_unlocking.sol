@@ -22,7 +22,7 @@ contract Victim{
            throw;
       }
       rewardsForA[recipient] += 100;
-      WithdrawReward(recipient);  // At this point, the caller will be able to execute getFirstWithdrawalBonus again.
+      WithdrawReward(recipient);  // At this point, the caller will be able to execute getFirstWithdrawalBonus again
       claimedBonus[recipient] = True;
    }
 }
