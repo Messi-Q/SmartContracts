@@ -32,15 +32,16 @@ contract Vulnerable{
 }
 
 pragma solidity ^0.4.18;
+import './Vulnerable.sol';
 
 contract Attacker{
   address private _owner;
-  address private vul;
+  uint public count = 0;
+  Vulnerable vul;
 
   //initial the attack contract with the vulnerable address
   function Attacker(address _vulAddr){ 
      _owner = msg.sender;
-     vul = _vulAddr;
   }
 
   function attack(){
@@ -54,5 +55,4 @@ contract Attacker{
      }
   }
 }
-
 
