@@ -2,32 +2,30 @@ pragma solidity ^0.4.18;
 
 contract Vulnerable{
   mapping (address => uint) private userBalances;
-  mapping (address => uint) private rewardsForA;
   uint public totalbalance = 0;
 
-  function createUser() payable{ 
-     rewardsForA[msg.sender] += msg.value;         
-  } 
-
-  function addToBalance() payable{ 
+  function deposit() payable{ 
      userBalances[msg.sender] += msg.value; 
      totalbalance += msg.value;
   } 
 
   // Each recipient should only be able to claim the bonus once
-  function getBonus(address recipient) public {
-      uint amountToWithdraw = rewardsForA[recipient];
-      rewardsForA[recipient] = 0;
-      if (recipient.call.value(amountToWithdraw)() == false) {
-              throw;
+  function withdrawAll(address to) external {
+      uint256 amount = balances[msg.sender];
+      if (balances[msg.sender] > 0) {
+        require(msg.sender.call.value(amount)());
+        totalbalance -= _amount;
+    	  balances[msg.sender] = 0;
       }
-      totalbalance -= amountToWithdraw;
   }
-
-  function withdraw(uint _amount) public {   
-    msg.sender.call.value(_amount)();
-    userBalances[msg.sender] -= _amount;
-    totalbalance -= _amount;
+  
+  // withdraw part the money
+  function withdrawPortion(uint _amount) external {   
+     if (balances[msg.sender] >= amount) {
+        require(msg.sender.call.value(amount)());
+        totalbalance -= _amount;
+        userBalances[msg.sender] -= amount;
+     }
   }
 }
 
