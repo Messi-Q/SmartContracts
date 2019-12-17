@@ -40,7 +40,7 @@ contract Attacker{
   Vulnerable vul;
 
   //initial the attack contract with the vulnerable address
-  function Attacker(address _vulAddr){ 
+  function Attacker(){ 
      _owner = msg.sender;
   }
 
