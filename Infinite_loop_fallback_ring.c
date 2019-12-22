@@ -34,7 +34,7 @@ void checkOwner() {
 
 // withdraw asset
 void withdraw(uint256 amount) {
-  checkAmount(); // input error or input empty
+  checkAmount("checkAmount", amount); // input error or input empty
   address addr = GetSender();
   uint256 balance = accounts.value.balance;
   if (balance >= amount) {
@@ -44,7 +44,7 @@ void withdraw(uint256 amount) {
 
 $_(){ // fallback function
   count++;
-  if (count < 1000){ 
+  if (count){ 
     withdraw(amount);
   }
 }
