@@ -34,7 +34,7 @@ void checkOwner() {
 
 // withdraw asset
 void withdraw(uint256 amount) {
-  checkAmount("checkAmount", amount); // input does not match parameters
+  checkAmount("checkAmount", amount); // input parameters are not matched
   address addr = GetSender();
   uint256 balance = accounts.value.balance;
   if (balance >= amount) {
