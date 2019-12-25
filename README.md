@@ -1,4 +1,4 @@
-# Smart contracts basedon Ethereum and Vntchain (v1.0.0)
+# Smart contracts based on Ethereum and Vntchain (v1.0.0)
 This is a repository containing smart contracts based on Ethereum and Vntchain.
 
 ## Reentrancy Risk of Ethereum Smart Contract
