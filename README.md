@@ -1,4 +1,4 @@
-# Vulnerabilities of smart contract
+# Vulnerabilities of smart contract (v1.0.0)
 This is a repository containing smart contracts based on Ethereum and Vntchain.
 
 ## Reentrancy Risk of Ethereum Smart Contract
