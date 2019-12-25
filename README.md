@@ -13,7 +13,7 @@ A reentrancy attack also may appear in such a situation, in which a vulnerable f
 
 ## Infinite Loop Risk of Vntchain smart Contract
 
-Regardless of practical significance, we categorize specific infinite loop instances of smart contracts based on Vntchain into four types: For Loop, While Loop, Function Call Ring, and Fallback Call Ring. In what follows, we shortly recapitulate the four representative instances.
+Regardless of practical significance, we categorize specific infinite loop instances of smart contracts based on Vntchain into four types: For Loop, While Loop, Function Call cycle, and Fallback Call cycle. In what follows, we shortly recapitulate the four representative instances.
 
 `Infinite_loop_for.c`
 
@@ -23,11 +23,11 @@ This is a typical example of "For Loop".
 
 This is a typical example of "While Loop".
 
-`Infinite_loop_function_ring.c`
+`Infinite_loop_function_cycle.c`
 
-This is a typical example of "Function Call Ring".
+This is a typical example of "Function Call cycle".
 
-`Infinite_loop_fallback_ring.c`
+`Infinite_loop_fallback_cycle.c`
 
-This is a typical example of "Fallback Call Ring".
+This is a typical example of "Fallback Call cycle".
 
