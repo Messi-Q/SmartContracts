@@ -33,7 +33,8 @@ constructor $Dice() {
   totalGameCount = 0;
 }
 
-void checkAmount(uint256 amount) {  // check if the amount is enough
+// check if the amount is enough
+void checkAmount(uint256 amount) {
   Require(U256_Cmp(amount, U256(0) == 1), "amount must > 0");
   address from = GetSender();
   accounts.key = from;
@@ -45,6 +46,7 @@ void checkAmount(uint256 amount) {  // check if the amount is enough
   GetAmount(amount);
 }
 
+// withdraw money
 MUTABLE
 void Withdraw(uint256 amount) {
   checkAmount(amount);
@@ -57,15 +59,17 @@ void Withdraw(uint256 amount) {
   }
 }
 
+// withdraw all money
 MUTABLE
-void WithdrawAll() {  // withdraw all money
+void WithdrawAll() {
   accounts.key = GetSender();
   uint256 amount = accounts.value.balance;
   Withdraw(amount);
 }
 
+// deposit money
 MUTABLE
-void $Deposit() {  // deposit money
+void $Deposit() {
   uint256 amount = GetValue();
   address from = GetSender();
   accounts.key = from;
@@ -74,14 +78,16 @@ void $Deposit() {  // deposit money
   EVENT_DEPOSIT(from, accounts.value.balance, amount);
 }
 
+// get money from certain address
 UNMUTABLE
-uint256 GetAmountFromAddress(address addr) {  // get money from certain address
+uint256 GetAmountFromAddress(address addr) {
   accounts.key = addr;
   return accounts.value.balance;
 }
 
+// get money
 UNMUTABLE
-uint256 GetAmount(uint256 amount) {  // get money
+uint256 GetAmount(uint256 amount) {
   checkAmount(amount);
   return GetAmountFromAddress(GetSender()); 
 }

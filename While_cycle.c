@@ -25,4 +25,4 @@ uint256 while_loop2(uint32 amount) {
 
 //...
 
-_(){} // fallback function
+_() {} // fallback function

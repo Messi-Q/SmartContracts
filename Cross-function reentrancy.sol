@@ -4,6 +4,7 @@ contract Vulnerable{
   mapping (address => uint) private userBalances;
   uint public totalbalance = 0;
 
+  // deposit money
   function deposit() payable{ 
      userBalances[msg.sender] += msg.value; 
      totalbalance += msg.value;
