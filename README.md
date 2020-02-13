@@ -7,6 +7,7 @@ This is a repository containing smart contracts based on Ethereum and Vntchain.
 
 Attackers probably produce attacks using two different functions that share the same state. Generally, these attacks are harder to detect. A cross-function reentrancy attack is possible when a vulnerable function shares a state with another function that has a desirable effect on the attacker.
  
+
 `Sharing-variable reentrancy.sol`
 
 A reentrancy attack also may appear in such a situation, in which a vulnerable function shares interval states with another function that has a desirable effect on the attacker.
