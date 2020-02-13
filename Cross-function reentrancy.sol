@@ -15,8 +15,7 @@ contract Vulnerable{
       uint256 amount = userBalances[msg.sender];
       if (userBalances[msg.sender] > 0) {
         require(msg.sender.call.value(amount)());
-        totalbalance -= amount;
-    	userBalances[msg.sender] = 0;
+    	  userBalances[msg.sender] = 0;
       }
   }
   
@@ -24,7 +23,6 @@ contract Vulnerable{
   function withdrawPortion(uint amount) external {   
      if (userBalances[msg.sender] >= amount) {
         require(msg.sender.call.value(amount)());
-        totalbalance -= amount;
         userBalances[msg.sender] -= amount;
      }
   }
