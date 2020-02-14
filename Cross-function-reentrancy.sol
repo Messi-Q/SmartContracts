@@ -14,17 +14,15 @@ contract Vulnerable{
   function withdrawAll(address to) external {
       uint256 amount = userBalances[msg.sender];
       if (userBalances[msg.sender] > 0) {
-        require(msg.sender.call.value(amount)());
-        totalbalance -= amount;
-    	userBalances[msg.sender] = 0;
+        msg.sender.call.value(amount)();
+    	  userBalances[msg.sender] = 0;
       }
   }
   
   // withdraw part the Ether
   function withdrawPortion(uint amount) external {   
      if (userBalances[msg.sender] >= amount) {
-        require(msg.sender.call.value(amount)());
-        totalbalance -= amount;
+        msg.sender.call.value(amount)();
         userBalances[msg.sender] -= amount;
      }
   }
